@@ -1,0 +1,54 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.nav-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.navigation {
+  background-color: #228be6;
+  color: #fff;
+  padding: 1.5rem 0;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  font-size: 1.8rem;
+}
+
+.input {
+  width: 20rem;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.4rem;
+  text-transform: capitalize;
+  border-radius: 4px;
+  border: none;
+}
+
+.buttons-flex {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn {
+  background: none;
+  background-color: #1864ab;
+  border: none;
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+  color: #fff;
+  text-transform: capitalize;
+  cursor: pointer;
+}
