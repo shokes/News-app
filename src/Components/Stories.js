@@ -1,5 +1,21 @@
+import { useGlobalContext } from '../context';
+import Story from './Story';
+import Loading from './Loading';
+
 const Stories = function () {
-  return <section>stories compoenent</section>;
+  const { news, loading } = useGlobalContext();
+  //console.log(news);
+  if (loading) {
+    return <Loading />;
+  }
+  return (
+    <section className='stories-grid container'>
+      {news.map((story) => {
+        //   console.log(story);
+        return <Story key={story.objectID} {...story} />;
+      })}
+    </section>
+  );
 };
 
 export default Stories;
