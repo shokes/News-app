@@ -1,7 +1,7 @@
 import { FaTrashAlt } from 'react-icons/fa';
 import { useGlobalContext } from '../context';
 import moment from 'moment';
-import { Fade, Bounce } from 'react-awesome-reveal';
+import { Bounce } from 'react-awesome-reveal';
 const Story = function ({
   title,
   points,

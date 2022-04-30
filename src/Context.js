@@ -1,22 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
+
+import reducer from './reducer';
 
 const AppContext = React.createContext();
 const url = 'http://hn.algolia.com/api/v1/search?query=';
 const AppProvider = function ({ children }) {
-  const [loading, setLoading] = useState(false);
-  const [news, setNews] = useState([]);
-  const [search, setSearch] = useState('Javascript');
-  const [theme, setTheme] = useState('light-theme');
+  const initialState = {
+    news: [],
+    loading: false,
+    theme: 'light-theme',
+    search: 'Javascript',
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const fetchNews = async () => {
-    setLoading(true);
+    dispatch({ type: 'SET_LOADING' });
     try {
-      const response = await fetch(`${url}${search}`);
+      const response = await fetch(`${url}${state.search}`);
       const data = await response.json();
-      const NewsData = data.hits;
-      console.log(NewsData);
-      setNews(NewsData);
-      setLoading(false);
+      const newsData = data.hits;
+
+      dispatch({ type: 'SET_NEWS', payload: newsData });
     } catch (error) {
       console.log('error occured');
     }
@@ -25,33 +30,34 @@ const AppProvider = function ({ children }) {
   useEffect(() => {
     fetchNews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+  }, [state.search]);
 
   const handleRemove = (id) => {
-    const filteredNews = news.filter((story) => id !== story.objectID);
-    setNews(filteredNews);
+    dispatch({ type: 'FILTERED_NEWS', payload: id });
   };
   useEffect(() => {
-    document.documentElement.classList = theme;
-  }, [theme]);
+    document.documentElement.classList = state.theme;
+  }, [state.theme]);
 
   const handleThemeChange = () => {
-    if (theme === 'light-theme') {
-      setTheme('dark-theme');
+    if (state.theme === 'light-theme') {
+      dispatch({ type: 'DARK_THEME' });
     } else {
-      setTheme('light-theme');
+      dispatch({ type: 'LIGHT_THEME' });
     }
+  };
+
+  const handleSearch = (searchValue) => {
+    dispatch({ type: 'SET_SEARCH', payload: searchValue });
   };
   return (
     <AppContext.Provider
       value={{
-        news,
-        search,
-        setSearch,
-        loading,
+        ...state,
+
+        handleSearch,
         handleThemeChange,
         handleRemove,
-        theme,
       }}
     >
       {children}

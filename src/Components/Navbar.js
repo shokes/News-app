@@ -1,7 +1,7 @@
 import { useGlobalContext } from '../context';
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 const Navbar = function () {
-  const { search, setSearch, handleThemeChange, theme } = useGlobalContext();
+  const { search, handleThemeChange, theme, handleSearch } = useGlobalContext();
 
   return (
     <nav className='navigation'>
@@ -14,7 +14,7 @@ const Navbar = function () {
             placeholder='search...'
             className='input'
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearch(e.target.value)}
           />
 
           <button onClick={handleThemeChange} className='container btn-toggle'>
