@@ -40,6 +40,30 @@ const reducer = (state, action) => {
       search: action.payload,
     };
   }
+  if (action.type === 'SET_PAGE') {
+    if (action.payload === 'inc') {
+      let nextPage = state.page + 1;
+
+      if (nextPage > state.numOfPages - 1) {
+        nextPage = 0;
+      }
+
+      return {
+        ...state,
+        page: nextPage,
+      };
+    } else {
+      let prevPage = state.page - 1;
+
+      if (prevPage < 1) {
+        prevPage = 0;
+      }
+      return {
+        ...state,
+        page: prevPage,
+      };
+    }
+  }
 
   throw new Error('no matching action type');
 };

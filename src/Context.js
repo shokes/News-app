@@ -10,6 +10,8 @@ const AppProvider = function ({ children }) {
     loading: false,
     theme: 'light-theme',
     search: 'Javascript',
+    page: 0,
+    numOfPages: 50,
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -17,8 +19,9 @@ const AppProvider = function ({ children }) {
   const fetchNews = async () => {
     dispatch({ type: 'SET_LOADING' });
     try {
-      const response = await fetch(`${url}${state.search}`);
+      const response = await fetch(`${url}${state.search}&page=${state.page}`);
       const data = await response.json();
+      //console.log(data);
       const newsData = data.hits;
 
       dispatch({ type: 'SET_NEWS', payload: newsData });
@@ -30,7 +33,7 @@ const AppProvider = function ({ children }) {
   useEffect(() => {
     fetchNews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.search]);
+  }, [state.search, state.page]);
 
   const handleRemove = (id) => {
     dispatch({ type: 'FILTERED_NEWS', payload: id });
@@ -50,11 +53,15 @@ const AppProvider = function ({ children }) {
   const handleSearch = (searchValue) => {
     dispatch({ type: 'SET_SEARCH', payload: searchValue });
   };
+
+  const handlePage = (value) => {
+    dispatch({ type: 'SET_PAGE', payload: value });
+  };
   return (
     <AppContext.Provider
       value={{
         ...state,
-
+        handlePage,
         handleSearch,
         handleThemeChange,
         handleRemove,

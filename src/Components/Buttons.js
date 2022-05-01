@@ -1,9 +1,28 @@
+import { useGlobalContext } from '../context';
+
 const Button = function () {
+  const { page, numOfPages, handlePage, loading } = useGlobalContext();
+
   return (
     <section className='buttons-flex'>
-      <button className='btn'>prev</button>
-      <div>1 of 50</div>
-      <button className='btn'>next</button>
+      <button
+        disabled={loading}
+        className='btn'
+        onClick={() => handlePage('dec')}
+      >
+        prev
+      </button>
+      <div className='pages-desc'>
+        {page + 1} of {numOfPages}
+      </div>
+
+      <button
+        disabled={loading}
+        className='btn'
+        onClick={() => handlePage('inc')}
+      >
+        next
+      </button>
     </section>
   );
 };
