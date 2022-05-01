@@ -3,14 +3,6 @@
   margin: 0;
   box-sizing: border-box;
 }
-/* :root {
-  --text-link: #1971c2;
-  --text-color: #343a40;
-  --background: #fff;
-  --nav-background: #1971c2;
-  --logo-background: #e03131;
-  --border-color: #f8f9fa;
-} */
 
 .light-theme {
   --text-link: #1971c2;
@@ -72,6 +64,8 @@ body {
   border-radius: 4px;
   border: none;
   height: 2.5rem;
+  box-shadow: 0 2.4rem 4.8rem rgb(0 0 0 / 14%);
+  margin-bottom: 2rem;
 }
 
 .buttons-flex {
@@ -97,7 +91,7 @@ body {
 .story-box {
   background-color: var(--background);
   height: 16rem;
-  width: 32rem;
+  width: 100%;
   margin-bottom: 1rem;
   border-radius: 4px;
   box-shadow: 0 2.4rem 4.8rem rgb(0 0 0 / 8%);
@@ -217,4 +211,43 @@ p {
 
 .pages-desc {
   color: var(--text-color);
+}
+
+/* below 1300px */
+
+@media (max-width: 83em) {
+  .container {
+    max-width: 60rem;
+  }
+}
+
+/* below 990px */
+
+@media (max-width: 62em) {
+  html {
+    font-size: 70.25%;
+  }
+  .container {
+    max-width: 60rem;
+  }
+}
+
+/* below 695px */
+
+@media (max-width: 43em) {
+  .container {
+    max-width: 50rem;
+  }
+
+  .stories-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* below 362px */
+
+@media (max-width: 43em) {
+  .container {
+    max-width: 27rem;
+  }
 }
