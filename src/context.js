@@ -21,7 +21,7 @@ const AppProvider = function ({ children }) {
     try {
       const response = await fetch(`${url}${state.search}&page=${state.page}`);
       const data = await response.json();
-      //console.log(data);
+      
       const newsData = data.hits;
 
       dispatch({ type: 'SET_NEWS', payload: newsData });
